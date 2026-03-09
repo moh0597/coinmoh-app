@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoinMoh App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root { --tg-bg: #ffffff; --tg-accent: #2481cc; }
+        body { font-family: sans-serif; background: var(--tg-bg); margin: 0; padding: 20px; text-align: center; }
+        .header { font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #333; }
+        .stats-box { display: flex; justify-content: space-between; background: #f0f2f5; padding: 15px; border-radius: 12px; margin-bottom: 25px; }
+        .stat { flex: 1; }
+        .stat-val { font-size: 18px; font-weight: bold; color: var(--tg-accent); }
+        .btn { background: var(--tg-accent); color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 16px; width: 100%; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="header">مرحباً في CoinMoh!</div>
+    
+    <div class="stats-box">
+        <div class="stat"><div>المشاركون</div><div class="stat-val">1,240</div></div>
+        <div class="stat"><div>المسابقات</div><div class="stat-val">12</div></div>
+    </div>
+
+    <button class="btn" onclick="tg.showAlert('جارٍ تحميل المسابقة الحالية...')">ابدأ المسابقة الآن</button>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+    </script>
+</body>
+</html>
