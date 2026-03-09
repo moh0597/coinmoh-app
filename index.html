@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 20px; }
+        .hidden { display: none; }
+        .btn { background: #2481cc; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div id="user-ui">
+        <h1>مرحباً <span id="user-name"></span></h1>
+        <button class="btn" onclick="register()">تسجيل الدخول للمسابقة</button>
+    </div>
+
+    <div id="admin-ui" class="hidden">
+        <h2>لوحة المدير</h2>
+        <button class="btn" onclick="showUsers()">عرض المشتركين</button>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+        
+        // التحقق من هوية المدير (ضع رقمك الشخصي هنا بدلاً من 123456)
+        if (tg.initDataUnsafe.user.id == 123456) {
+            document.getElementById('admin-ui').classList.remove('hidden');
+        }
+
+        document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name;
+
+        function register() {
+            let id = tg.initDataUnsafe.user.id;
+            tg.CloudStorage.setItem("user_" + id, tg.initDataUnsafe.user.first_name, (err, res) => {
+                alert("تم التسجيل!");
+            });
+        }
+
+        function showUsers() {
+            tg.CloudStorage.getKeys((err, keys) => {
+                document.getElementById('results').innerText = "المشتركين: " + keys.join(', ');
+            });
+        }
+    </script>
+</body>
+</html>
